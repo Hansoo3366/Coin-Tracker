@@ -3,12 +3,12 @@ import Coin from "./routes/Coin";
 import CoinLst from "./routes/CoinLst"
 
 function Router() {
-    return <BrowserRouter>
+    return <BrowserRouter >
         <Switch>
-            <Route path="/:coinId">
+            <Route path={`/:coinId`}>
                 <Coin />
             </Route>
-            <Route path="/">
+            <Route path={`/`}>
                 <CoinLst />
             </Route>
         </Switch>

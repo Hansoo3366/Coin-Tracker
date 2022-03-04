@@ -6,8 +6,6 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTicker } from "../api";
 import { Helmet } from "react-helmet";
-import { faHomeLg } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Container = styled.div`
@@ -204,7 +202,7 @@ function Coin() {
                 <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
             </Helmet>
             <HomeBtn>
-                <Link to="/"><FontAwesomeIcon icon={faHomeLg} /></Link>
+                <Link to="/">&larr;</Link>
             </HomeBtn>
 
             <Header>
