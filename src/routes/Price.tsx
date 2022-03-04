@@ -77,7 +77,7 @@ const PriceTitle = styled.span`
 function Price({coinId}:PriceProps) {
     const {isLoading: priceLoading, data: priceData} = useQuery<IPriceData>(["ticker", coinId], () => fetchCoinTicker(coinId),
         {
-            //refetchInterval: 10000,
+            refetchInterval: 10000,
         }
         
     );

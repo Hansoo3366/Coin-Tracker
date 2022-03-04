@@ -180,7 +180,7 @@ function Coin() {
     const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info",coinId], () => fetchCoinInfo(coinId));
     const {isLoading: tickerLoading, data: tickerData} = useQuery<PriceData>(["ticker",coinId], () => fetchCoinTicker(coinId),
         {
-            //refetchInterval: 5000,
+            refetchInterval: 5000,
         }
 
     );
