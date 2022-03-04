@@ -6,7 +6,7 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTicker } from "../api";
 import { Helmet } from "react-helmet";
-import { faCamera, faHomeLg } from "@fortawesome/free-solid-svg-icons";
+import { faHomeLg } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
