@@ -1,9 +1,15 @@
 import styled, { createGlobalStyle } from "styled-components";
 import React from "react";
 import Router from "./Router";
+import { ReactQueryDevtools } from "react-query/devtools"
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
+@font-face {
+  font-family: 'SuncheonB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/SuncheonB.woff');
+};
+
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/SuncheonB.woff');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -57,7 +63,7 @@ table {
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'SuncheonB';
   background-color: ${props => props.theme.bgColor};
   color: ${props => props.theme.textColor};
 }
@@ -73,6 +79,7 @@ function App() {
     <>
     <GlobalStyle />
     <Router />
+    <ReactQueryDevtools />
     </>
     
   );

@@ -6,16 +6,27 @@ import Chart from "./Chart";
 import { useQuery } from "react-query";
 import { fetchCoinInfo, fetchCoinTicker } from "../api";
 import { Helmet } from "react-helmet";
+import { faCamera, faHomeLg } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Container = styled.div`
     padding: 0px 20px;
     max-width: 480px;
     margin: 0 auto;
+    max-height: 100vh;
+    
 `;
 
 const Header = styled.header`
-    height: 10vh;
+    @font-face {
+        font-family: 'SEBANG_Gothic_Bold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    font-family: 'SEBANG_Gothic_Bold';
+    height: 13vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,6 +111,7 @@ const Overview = styled.div`
     background-color: rgba(0,0,0,0.5);
     padding: 10px 20px;
     border-radius: 10px;
+    margin-top: 20px;
 `;
 
 const OverviewItem = styled.div`
@@ -140,6 +152,25 @@ const Tab = styled.span<{ isActive: boolean }>`
     }
 `;
 
+const HomeBtn = styled.span`
+    position: fixed;
+    top: 20px;
+    background-color: ${(props) => props.theme.btnColor};
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.3);
+    &:hover {
+        color: ${(props) => props.theme.accentColor};
+    }
+`;
+
+
+
 
 function Coin() {
     const { coinId } = useParams<RouteParams>();
@@ -149,7 +180,7 @@ function Coin() {
     const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info",coinId], () => fetchCoinInfo(coinId));
     const {isLoading: tickerLoading, data: tickerData} = useQuery<PriceData>(["ticker",coinId], () => fetchCoinTicker(coinId),
         {
-            refetchInterval: 5000,
+            //refetchInterval: 5000,
         }
 
     );
@@ -172,6 +203,10 @@ function Coin() {
             <Helmet>
                 <title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</title>
             </Helmet>
+            <HomeBtn>
+                <Link to="/"><FontAwesomeIcon icon={faHomeLg} /></Link>
+            </HomeBtn>
+
             <Header>
                 <Title>{state?.name ? state.name : loading ? "Loading..." : infoData?.name}</Title>
             </Header>
@@ -203,7 +238,7 @@ function Coin() {
                         </OverviewItem>
                     </Overview>
 
-                    <Link to="/">Home</Link>
+  
 
                     <Tabs>
                         <Tab isActive={chartMatch !== null}> 
@@ -221,12 +256,13 @@ function Coin() {
                             <Chart coinId = {coinId}/>
                         </Route>
                         <Route path={`/${coinId}/price`}>
-                            <Price/>
+                            <Price coinId = {coinId}/>
                         </Route>
                     </Switch>
                 </>
             }
         </Container>
+        
     );
 }
 

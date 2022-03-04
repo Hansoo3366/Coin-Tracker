@@ -11,10 +11,18 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
+    @font-face {
+        font-family: 'SEBANG_Gothic_Bold';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    font-family: 'SEBANG_Gothic_Bold';
     height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 30px 0px;
 `;
 
 const CoinList = styled.ul``;
@@ -38,7 +46,7 @@ const Coin = styled.li`
 `;
 
 const Title = styled.h1`
-    color:${props => props.theme.accentColor};
+    color:${props => props.theme.titleColor};
     font-size: 48px;
 `;
 
@@ -79,10 +87,10 @@ function CoinLst() {
     return (
         <Container>
             <Helmet>
-                <title>코인</title>
+                <title>Coin Tracker</title>
             </Helmet>
             <Header>
-                <Title>코인</Title>
+                <Title>Coin Tracker</Title>
             </Header>
             {isLoading ? (<Loader>Loading...</Loader>):(<CoinList>
                 {data?.slice(0, 100).map((coin) => (
