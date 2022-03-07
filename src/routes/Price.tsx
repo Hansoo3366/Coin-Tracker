@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { fetchCoinTicker } from "../api";
+import { useOutletContext } from "react-router";
 
 
 interface PriceProps {
@@ -74,7 +75,8 @@ const PriceTitle = styled.span`
 
 
 
-function Price({coinId}:PriceProps) {
+function Price() {
+    const { coinId } = useOutletContext<PriceProps>();
     const {isLoading: priceLoading, data: priceData} = useQuery<IPriceData>(["ticker", coinId], () => fetchCoinTicker(coinId),
         {
             refetchInterval: 10000,

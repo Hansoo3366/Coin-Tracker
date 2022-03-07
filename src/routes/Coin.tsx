@@ -1,5 +1,5 @@
-import { useParams, Switch, Route } from "react-router";
-import { Link, useLocation, useRouteMatch } from "react-router-dom";
+import { Routes, Route } from "react-router";
+import { Link, useLocation, useMatch, useParams, Outlet,  } from "react-router-dom";
 import styled from "styled-components";
 import Price from "./Price";
 import Chart from "./Chart";
@@ -40,12 +40,12 @@ const Loader = styled.span`
     display: block;
 `;
 
-interface RouteParams {
-    coinId:string;
-}
 
 interface RouteState {
-    name:string;
+    state: {
+        name: string;
+    };
+    
 }
 
 
@@ -152,7 +152,8 @@ const Tab = styled.span<{ isActive: boolean }>`
 
 const HomeBtn = styled.span`
     position: fixed;
-    top: 20px;
+    top: 30px;
+    left: 50px;
     background-color: ${(props) => props.theme.btnColor};
     width: 50px;
     height: 50px;
@@ -171,10 +172,10 @@ const HomeBtn = styled.span`
 
 
 function Coin() {
-    const { coinId } = useParams<RouteParams>();
-    const { state } = useLocation<RouteState>();
-    const priceMatch = useRouteMatch(`/${coinId}/price`);
-    const chartMatch = useRouteMatch(`/${coinId}/chart`);
+    const { coinId } = useParams(); //react-router ver6 부터 자동으로 string|undefined
+    const { state } = useLocation() as RouteState; // ver6부터 제네릭 지원 x
+    const priceMatch = useMatch(`/${coinId}/price`);
+    const chartMatch = useMatch(`/${coinId}/chart`);
     const {isLoading: infoLoading, data: infoData} = useQuery<InfoData>(["info",coinId], () => fetchCoinInfo(coinId));
     const {isLoading: tickerLoading, data: tickerData} = useQuery<PriceData>(["ticker",coinId], () => fetchCoinTicker(coinId),
         {
@@ -247,16 +248,7 @@ function Coin() {
                         </Tab>
                     </Tabs>
                    
-                    
-
-                    <Switch>
-                        <Route path={`/${coinId}/chart`}>
-                            <Chart coinId = {coinId}/>
-                        </Route>
-                        <Route path={`/${coinId}/price`}>
-                            <Price coinId = {coinId}/>
-                        </Route>
-                    </Switch>
+                    <Outlet context={{coinId}} />
                 </>
             }
         </Container>

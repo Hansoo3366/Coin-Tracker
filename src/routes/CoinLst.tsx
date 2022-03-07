@@ -71,7 +71,11 @@ interface ICoin {
     type:string,
 }
 
-function CoinLst() {
+interface ICoinsProps {
+    toggleDark: () => void;
+}
+
+function CoinLst({toggleDark}: ICoinsProps) {
 
    const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoin)
     /* const [coins, setCoins] = useState<CoinInterface[]>([])
@@ -91,14 +95,12 @@ function CoinLst() {
             </Helmet>
             <Header>
                 <Title>Coin Tracker</Title>
+                <button onClick={toggleDark}>Toggle Button</button>
             </Header>
             {isLoading ? (<Loader>Loading...</Loader>):(<CoinList>
                 {data?.slice(0, 100).map((coin) => (
                     <Coin key={coin.id}>
-                        <Link to={{
-                            pathname:`/${coin.id}`,
-                            state:{name: coin.name},
-                        }}>
+                        <Link to={{pathname:`/${coin.id}`}} state={{name: coin.name}}>
                             <CoinIcon src={`https://cryptoicon-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
                             {coin.name} &rarr;
                         </Link>
